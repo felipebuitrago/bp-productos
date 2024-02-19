@@ -6,6 +6,9 @@ import { LayoutComponent } from './layout/layout/layout.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { EditComponent } from './pages/edit/edit.component';
 import { CreateComponent } from './pages/create/create.component';
+import { ProductsTableComponent } from './components/products-table/products-table.component';
+import { TablePaginationComponent } from './components/table-pagination/table-pagination.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,11 +16,14 @@ import { CreateComponent } from './pages/create/create.component';
     LayoutComponent,
     ProductsComponent,
     EditComponent,
-    CreateComponent
+    CreateComponent,
+    ProductsTableComponent,
+    TablePaginationComponent
   ],
   imports: [
     CommonModule,
-    ProductsRoutingModule
+    ProductsRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class ProductsModule { }

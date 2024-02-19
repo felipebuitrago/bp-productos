@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { Product } from '../interfaces/product.interface';
 
 @Injectable({
@@ -27,8 +27,12 @@ export class ProductService {
     return this.httpClient.put<Product>( this.baseURL, { ...product }, { headers: this.headers } );
   }
 
-  deleteProduct(product : Product) : any {
-    return this.httpClient.put<any>( `${this.baseURL}?id=${product.id}`, { headers: this.headers } );
+  deleteProduct(id : string): Observable<boolean> {
+    return this.httpClient.delete( `${this.baseURL}/?id=${id}`, { headers: this.headers } )
+      .pipe(
+        map( resp => true ),
+        catchError( err => of(false) ),
+    );
   }
   
   verifyProduct(id : string | null) : Observable<any> {

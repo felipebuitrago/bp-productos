@@ -1,11 +1,5 @@
-<p>products works!</p>
+<br>
 <a routerLink="crear">Agregar</a>
 
-<p *ngFor="let product of products">
-    {{ product | json }}
-    <button (click)="editProduct(product)">Editar</button>
-    <button (click)="deleteProduct(product)">Eliminar</button>
-</p>
-
-
+<app-products-table [products]="products" (onProductDelete)="getProducts()"> </app-products-table>
 

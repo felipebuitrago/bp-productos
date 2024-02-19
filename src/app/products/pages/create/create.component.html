@@ -1,3 +1,17 @@
 <p>create works!</p>
 <a routerLink="productos">Volver a Productos</a>
 
+<form [formGroup]="productForm" (ngSubmit)="onCreate()">
+
+    <input type="text" formControlName="id" placeholder="ID">
+    <input type="text" formControlName="name" placeholder="Nombre">
+    <input type="text" formControlName="description" placeholder="Descripción">
+    <input type="text" formControlName="logo" placeholder="Logo">
+    <input type="date"(change)="onDateChange($event)"  formControlName="date_release" [min]="formattedDate">
+    <input type="date" [value]="date_revision" disabled>
+    <button type="button" (click)="onReset()" [disabled]="!productForm.touched">Resetear</button>
+    <button type="submit" [disabled]="productForm.invalid">Agregar</button>
+</form>
+
+
+
