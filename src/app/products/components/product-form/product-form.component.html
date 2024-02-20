@@ -1,0 +1,57 @@
+
+<div class="container">
+
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        
+        <h1>{{formTitle}}</h1>
+        <hr>
+
+        <div class="form-container">
+            
+            <div class="form-group">
+                <label for="id">ID</label>
+
+                <input *ngIf="!id else editIdInput" id="id" type="text" formControlName="id" placeholder="ID">
+                <ng-template #editIdInput>
+                    <input id="id" type="text" [value]="id" disabled>
+                </ng-template>
+                
+            </div>
+        
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input id="name" type="text" formControlName="name" placeholder="Nombre">
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Descripción</label>
+                <input id="description" type="text" formControlName="description" placeholder="Descripción">
+            </div>
+            
+            <div class="form-group">
+                <label for="logo">Logo</label>
+                <input id="logo" type="text" formControlName="logo" placeholder="Logo">
+            </div>
+            
+            <div class="form-group">
+                <label for="date_release">Fecha lanzamiento</label>
+                <input id="date_release" type="date" (change)="onDateChange($event)" formControlName="date_release" [min]="formattedDate">
+            </div>
+            
+            <div class="form-group">
+                <label for="date_revision">Fecha revision</label>
+                <input id="date_revision" type="date" [value]="date_revision" disabled>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" (click)="onReset()" [disabled]="!productForm.touched">Resetear</button>
+                <button type="submit" [disabled]="productForm.invalid">Agregar</button>
+            </div>
+        
+        </div>
+    </form>
+</div>
+
+<div class="footer">
+    <a routerLink="productos">Volver a Productos</a>
+</div>

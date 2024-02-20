@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
-import { getFormattedDate, getNextYearFormattedDate } from '../../helpers/dates.helpers';
+import { Product } from '../../interfaces/product.interface';
+import { switchMap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-create',
@@ -10,47 +10,28 @@ import { getFormattedDate, getNextYearFormattedDate } from '../../helpers/dates.
 })
 export class CreateComponent {
 
-  date_revision : string = '';
-  formattedDate = getFormattedDate();
-  productForm : FormGroup = this.fb.group(
-    {
-      id: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
-      name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-      description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
-      logo: ['', [Validators.required]],
-      date_release: ['', [Validators.required]],
-    }
-  )
+  constructor(private productService : ProductService) { }
 
-  constructor(private fb: FormBuilder, private productService : ProductService) { }
+  onCreate($event: Product): void {
 
-  onCreate(): void {
-
-    this.productService.createProduct(
-      {
-        date_revision : this.date_revision,
-        ...this.productForm.value
-      }
-    ).subscribe(
-      () => {
-        this.onReset();
-      }
-    );
-  }
-
-  onDateChange($event: any): void {
-    
-    this.date_revision = getNextYearFormattedDate($event.target.value);
-  }
-
-  onReset(): void {
-    this.productForm.reset({
-      id: '',
-      name: '',
-      description: '',
-      logo: '',
-      date_release: '',
-    })
-    this.date_revision = '';
+    this.productService.verifyProduct($event.id)
+      .pipe(
+        switchMap((exists) => {
+         
+          if (!exists) {
+            return this.productService.createProduct($event);
+          
+          } else {
+            return throwError(() => new Error('id existente'));
+          }
+        })
+      ).subscribe({
+        next: () => {
+          console.log("Producto creado");
+        },
+        error: (e) => {
+          console.error(e);
+        }
+      });
   }
 }

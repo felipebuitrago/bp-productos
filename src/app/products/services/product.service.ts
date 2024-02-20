@@ -20,10 +20,16 @@ export class ProductService {
   }
 
   createProduct(product : Product) : Observable<Product> {
+    product.date_release = new Date(product.date_release + 'T00:00:00.000-05:00');
+    product.date_revision = new Date(product.date_revision + 'T00:00:00.000-05:00');
+    
     return this.httpClient.post<Product>( this.baseURL, { ...product }, { headers: this.headers } );
   }
 
   editProduct(product : Product) : Observable<Product> {
+    product.date_release = new Date(product.date_release + 'T00:00:00.000-05:00');
+    product.date_revision = new Date(product.date_revision + 'T00:00:00.000-05:00');
+
     return this.httpClient.put<Product>( this.baseURL, { ...product }, { headers: this.headers } );
   }
 

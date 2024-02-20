@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { getFormattedDate, getNextYearFormattedDate } from '../../helpers/dates.helpers';
+import { Product } from '../../interfaces/product.interface';
 
 @Component({
   selector: 'app-edit',
@@ -12,19 +11,8 @@ import { getFormattedDate, getNextYearFormattedDate } from '../../helpers/dates.
 export class EditComponent implements OnInit{
 
   id : string | null = '';
-  formattedDate = getFormattedDate();
-  date_revision : string = '';
-
-  productForm : FormGroup = this.fb.group(
-    {
-      name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-      description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
-      logo: ['', [Validators.required]],
-      date_release: ['', [Validators.required]],
-    }
-  )
-
-  constructor( private productService : ProductService, private route: ActivatedRoute, private router: Router , private fb: FormBuilder) { }
+  
+  constructor( private productService : ProductService, private route: ActivatedRoute, private router: Router ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -37,33 +25,13 @@ export class EditComponent implements OnInit{
 
   }
 
-  onCreate(): void {
-    this.productService.editProduct(
-      { 
-        id: this.id, 
-        date_revision: this.date_revision, 
-        ...this.productForm.value
-      }
-    )
-    .subscribe(
-      () => {
-        this.onReset();
-      }
-    )
-  }
-
-  onDateChange($event: any): void {
-
-    this.date_revision = getNextYearFormattedDate($event.target.value);
-  }
-
-  onReset(): void {
-    this.productForm.reset({
-      name: '',
-      description: '',
-      logo: '',
-      date_release: '',
-    });
-    this.date_revision = '';
+  onCreate($event: Product): void {
+    
+    this.productService.editProduct($event)
+      .subscribe(
+        () => {
+          this.router.navigate(['/productos']);
+        }
+      )
   }
 }

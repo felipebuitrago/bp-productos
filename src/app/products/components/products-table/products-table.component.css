@@ -128,7 +128,7 @@ th {
 .dialog-buttons {
     padding: 15px 15px;
     display: flex;
-    justify-content: space-around; /* Cambia esto si quieres que los botones estén más cerca */
+    justify-content: space-around; 
 }
 
 .cancel-button, .confirm-button {
@@ -140,13 +140,36 @@ th {
 }
 
 .cancel-button {
-    background-color: #F4F6F9; /* Color de fondo para el botón cancelar */
+    background-color: #F4F6F9;
     color: #17275A; 
-
 }
 
 .confirm-button {
     background-color: #F9DE4B;
     color: #17275A; 
+}
 
+.pagination-button{
+
+    padding: 10px 10px;
+}
+
+.pagination button.confirm-button:disabled{
+    
+    background-color: #FFF199;
+    color: #B9BCB3;
+    cursor: not-allowed;
+}
+
+.pagination button.cancel-button:disabled{
+    
+    background-color: #EAECF2;
+    color: #B9BCB3;
+    cursor: not-allowed;
+}
+
+.pagination-select{
+    padding: 6px 6px;
+    border: 1px solid #17275A;
+    border-radius: 3px;
 }
