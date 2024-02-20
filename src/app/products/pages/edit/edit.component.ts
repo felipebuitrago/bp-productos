@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../interfaces/product.interface';
+import { SnackbarComponent } from '../../components/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-edit',
@@ -11,7 +12,8 @@ import { Product } from '../../interfaces/product.interface';
 export class EditComponent implements OnInit{
 
   id : string | null = '';
-  
+  @ViewChild('snackbar') snackbar: SnackbarComponent = new SnackbarComponent();
+
   constructor( private productService : ProductService, private route: ActivatedRoute, private router: Router ) { }
 
   ngOnInit() {
@@ -30,7 +32,8 @@ export class EditComponent implements OnInit{
     this.productService.editProduct($event)
       .subscribe(
         () => {
-          this.router.navigate(['/productos']);
+          this.snackbar.showSnackbar("✅ Editado con éxito. ✅");
+          setTimeout(() => { this.router.navigate(['/productos']); }, 1000);
         }
       )
   }

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../interfaces/product.interface';
 import { switchMap, throwError } from 'rxjs';
+import { SnackbarComponent } from '../../components/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-create',
@@ -9,6 +10,8 @@ import { switchMap, throwError } from 'rxjs';
   styleUrl: './create.component.css'
 })
 export class CreateComponent {
+
+  @ViewChild('snackbar') snackbar: SnackbarComponent = new SnackbarComponent();
 
   constructor(private productService : ProductService) { }
 
@@ -27,10 +30,10 @@ export class CreateComponent {
         })
       ).subscribe({
         next: () => {
-          console.log("Producto creado");
+          this.snackbar.showSnackbar("✅ Agregado con éxito. ✅");
         },
         error: (e) => {
-          console.error(e);
+          this.snackbar.showSnackbar(`⚠️ ID "${$event.id}" en uso. ⚠️`);
         }
       });
   }

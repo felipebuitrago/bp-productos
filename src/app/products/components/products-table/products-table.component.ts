@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 import { Product } from '../../interfaces/product.interface';
 import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 @Component({
   selector: 'app-products-table',
@@ -11,6 +12,8 @@ import { ProductService } from '../../services/product.service';
 export class ProductsTableComponent {
 
   @ViewChild('dialog') dialog: ElementRef = new ElementRef('dialog');
+  @ViewChild('snackbar') snackbar : SnackbarComponent = new SnackbarComponent();
+
   @Input() products : Product[] = [];
   @Output() onProductDelete = new EventEmitter<boolean>();
 
@@ -31,6 +34,7 @@ export class ProductsTableComponent {
         this.onProductDelete.emit(true);
         this.dialog.nativeElement.close();
         this.page = 0;
+        this.snackbar.showSnackbar('✅ Eliminado con éxito. ✅');
       }
     );
   }

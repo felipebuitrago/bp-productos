@@ -54,4 +54,30 @@ export class ProductFormComponent implements OnInit{
     })
     this.date_revision = '';
   }
+
+  isValidField( field: string ): boolean | null {
+    return this.productForm.controls[field].errors
+      && this.productForm.controls[field].touched;
+  }
+
+  getFieldError( field: string ): string | null {
+
+    if ( !this.productForm.controls[field] ) return null;
+
+    const errors = this.productForm.controls[field].errors || {};
+
+    for (const key of Object.keys(errors) ) {
+      switch( key ) {
+        case 'required':
+          return 'Este campo es requerido!';
+
+        case 'minlength':
+          return `Mínimo ${ errors['minlength'].requiredLength } caracters.`;
+        
+        case 'maxlength':
+          return `Máximo ${ errors['maxlength'].requiredLength } caracters.`;
+      }
+    }
+    return null;
+  }
 }

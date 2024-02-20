@@ -11,7 +11,16 @@
             <div class="form-group">
                 <label for="id">ID</label>
 
-                <input *ngIf="!id else editIdInput" id="id" type="text" formControlName="id" placeholder="ID">
+                <input 
+                    *ngIf="!id else editIdInput" 
+                    id="id" 
+                    type="text" 
+                    formControlName="id" 
+                    placeholder="ID"
+                    [ngStyle]="{'border-color': isValidField('id')? 'red': ''}"
+                >
+                <span class="input-erros" *ngIf="isValidField('id') && !id">ID no válido!</span>
+
                 <ng-template #editIdInput>
                     <input id="id" type="text" [value]="id" disabled>
                 </ng-template>
@@ -20,27 +29,61 @@
         
             <div class="form-group">
                 <label for="name">Nombre</label>
-                <input id="name" type="text" formControlName="name" placeholder="Nombre">
+                <input 
+                    id="name" 
+                    type="text" 
+                    formControlName="name" 
+                    placeholder="Nombre"
+                    [ngStyle]="{'border-color': isValidField('name')? 'red': ''}"
+                >
+                <span class="input-erros" *ngIf="isValidField('name')"> {{getFieldError('name')}} </span>
             </div>
             
             <div class="form-group">
                 <label for="description">Descripción</label>
-                <input id="description" type="text" formControlName="description" placeholder="Descripción">
+                <input 
+                    id="description" 
+                    type="text" 
+                    formControlName="description" 
+                    placeholder="Descripción"
+                    [ngStyle]="{'border-color': isValidField('description')? 'red': ''}"
+                >
+                <span class="input-erros" *ngIf="isValidField('description')"> {{getFieldError('description')}} </span>
             </div>
             
             <div class="form-group">
                 <label for="logo">Logo</label>
-                <input id="logo" type="text" formControlName="logo" placeholder="Logo">
+                <input 
+                    id="logo" 
+                    type="text" 
+                    formControlName="logo" 
+                    placeholder="Logo"
+                    [ngStyle]="{'border-color': isValidField('logo')? 'red': ''}"
+                >
+                <span class="input-erros" *ngIf="isValidField('logo')"> {{getFieldError('logo')}} </span>
             </div>
             
             <div class="form-group">
                 <label for="date_release">Fecha lanzamiento</label>
-                <input id="date_release" type="date" (change)="onDateChange($event)" formControlName="date_release" [min]="formattedDate">
+                <input 
+                    id="date_release" 
+                    type="date" 
+                    (change)="onDateChange($event)" 
+                    formControlName="date_release" 
+                    [min]="formattedDate"
+                    [ngStyle]="{'border-color': isValidField('date_release')? 'red': ''}"
+                >
+                <span class="input-erros" *ngIf="isValidField('date_release')"> {{getFieldError('date_release')}} </span>
             </div>
             
             <div class="form-group">
                 <label for="date_revision">Fecha revision</label>
-                <input id="date_revision" type="date" [value]="date_revision" disabled>
+                <input 
+                    id="date_revision" 
+                    type="date" 
+                    [value]="date_revision" 
+                    disabled
+                >
             </div>
             
             <div class="form-actions">

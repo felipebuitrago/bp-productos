@@ -1,0 +1,33 @@
+.snackbar {
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #FFFFFF;
+    border: none; 
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+}
+
+.snackbar p {
+    color: black;
+    padding: 30px 30px;
+}
+
+.snackbar-buttons {
+    display: flex;
+    justify-content: center; 
+    padding-bottom: 12px;
+}
+
+.confirm-button {
+    border: none;
+    border-radius: 5px;
+    padding: 12px 55px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #F9DE4B;
+    color: #17275A; 
+}

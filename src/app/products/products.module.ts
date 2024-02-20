@@ -11,6 +11,7 @@ import { TablePaginationComponent } from './components/table-pagination/table-pa
 import { ReactiveFormsModule } from '@angular/forms';
 import { FilterPipe } from './pipes/filter.pipe';
 import { ProductFormComponent } from './components/product-form/product-form.component';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ProductFormComponent } from './components/product-form/product-form.com
     ProductsTableComponent,
     TablePaginationComponent,
     FilterPipe,
-    ProductFormComponent
+    ProductFormComponent,
+    SnackbarComponent
   ],
   imports: [
     CommonModule,
