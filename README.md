@@ -3,10 +3,10 @@
 ## F1. Listado de productos financieros: ✅
 Se requiere una aplicación para visualizar los diferentes productos financieros ofertados por la Institución Banco Pichincha cargados de una API. Realizar la maquetación en base al diseño D1.
 
-## F2. búsqueda de productos financieros: 
+## F2. búsqueda de productos financieros: ✅
 Se requiere realizar búsqueda de los productos financieros mediante un campo de texto. Realizar la maquetación en base al diseño D1.
 
-## F3. Cantidad de registros: 
+## F3. Cantidad de registros: ✅
 Se requiere que se muestre la cantidad de resultados mostrados en el listado y un select que permita seleccionar la cantidad de registros a mostrar debe contener los siguientes valores: 5, 10 y 20. Realizar la maquetación en base al diseño D1. Es deseable agregar una paginación simple en caso de que haya un número
 considerable de registros.
 

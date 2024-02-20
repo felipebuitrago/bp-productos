@@ -28,8 +28,8 @@
                     <td> {{product.logo}} </td>
                     <td> {{product.name}} </td>
                     <td> {{product.description}} </td>
-                    <td> {{product.date_release}} </td>
-                    <td> {{product.date_revision}} </td>
+                    <td> {{product.date_release | date:'dd/MM/YYYY'}} </td>
+                    <td> {{product.date_revision | date:'dd/MM/YYYY'}} </td>
                     <td> 
                         <div class="dropdown">
                             <button class="dropbtn">⋮</button>
@@ -44,7 +44,7 @@
         </table>
         <div class="pagination">
             <div>
-                <span>{{products.length}} Resultados</span>
+                <span>{{(products | filter:page:recordsPerPage:search).length}} Resultados</span>
             </div>
             <div>
                 <button (click)="onPrevPage()" [disabled]="page === 0">Anterior</button>
@@ -64,6 +64,6 @@
     <hr>
     <div class="dialog-buttons">
         <button class="cancel-button" (click)="closeDialog()">Cancelar</button>
-        <button class="confirm-button" (click)="deleteProduct()">Confirmar</button>
+        <button class="confirm-button" (click)="deleteProduct()">Eliminar</button>
     </div>
 </dialog>
