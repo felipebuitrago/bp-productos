@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
+import { getFormattedDate, getNextYearFormattedDate } from '../../helpers/dates.helpers';
 
 @Component({
   selector: 'app-create',
@@ -10,7 +11,7 @@ import { ProductService } from '../../services/product.service';
 export class CreateComponent {
 
   date_revision : string = '';
-  formattedDate = `${year}-${month}-${day}`;
+  formattedDate = getFormattedDate();
   productForm : FormGroup = this.fb.group(
     {
       id: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
@@ -38,15 +39,8 @@ export class CreateComponent {
   }
 
   onDateChange($event: any): void {
-
-    var selectedDateTime = new Date($event.target.value).getTime();
-    var milliseconsInYear = (366 * 24 * 60 * 60 * 1000 );
-    var nextYearDate = new Date(selectedDateTime + milliseconsInYear);
     
-    var month = String(nextYearDate.getMonth() + 1).padStart(2, '0');
-    var day = String(nextYearDate.getDate()).padStart(2, '0');
-
-    this.date_revision = `${nextYearDate.getFullYear()}-${month}-${day}`;
+    this.date_revision = getNextYearFormattedDate($event.target.value);
   }
 
   onReset(): void {
@@ -60,9 +54,3 @@ export class CreateComponent {
     this.date_revision = '';
   }
 }
-
-const currentDate = new Date();
-
-const year = currentDate.getFullYear();
-const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-const day = String(currentDate.getDate()).padStart(2, '0');

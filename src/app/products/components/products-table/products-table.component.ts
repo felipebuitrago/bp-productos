@@ -12,9 +12,12 @@ export class ProductsTableComponent {
 
   @ViewChild('dialog') dialog: ElementRef = new ElementRef('dialog');
   @Input() products : Product[] = [];
-  @Output() onProductDelete = new EventEmitter<boolean>()
+  @Output() onProductDelete = new EventEmitter<boolean>();
 
-  productToDelete: Product = { name: '' , id: '', date_release: new Date(), date_revision: new Date(), description: '', logo: ''};
+  search : string = '';
+  page : number = 0;
+  recordsPerPage : number = 5;
+  productToDelete : Product = { name: '' , id: '', date_release: new Date(), date_revision: new Date(), description: '', logo: ''};
 
   constructor(private productService : ProductService, private router : Router) { }
   
@@ -27,8 +30,28 @@ export class ProductsTableComponent {
       () => {
         this.onProductDelete.emit(true);
         this.dialog.nativeElement.close();
+        this.page = 0;
       }
     );
+  }
+
+  onSearch(search: string) {
+    this.page = 0;
+    this.search = search;
+  }
+
+  onRecordsPerPageChange(records: any){
+    this.recordsPerPage = Number(records.target.value);
+    this.page = 0;
+  }
+
+  onPrevPage(){
+    if (this.page > 0) 
+      this.page -= 1; 
+  }
+  
+  onNextPage(){
+    this.page += 1; 
   }
 
   openDialog(product: Product) {

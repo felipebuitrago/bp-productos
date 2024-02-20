@@ -9,6 +9,7 @@ import { CreateComponent } from './pages/create/create.component';
 import { ProductsTableComponent } from './components/products-table/products-table.component';
 import { TablePaginationComponent } from './components/table-pagination/table-pagination.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     EditComponent,
     CreateComponent,
     ProductsTableComponent,
-    TablePaginationComponent
+    TablePaginationComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,
