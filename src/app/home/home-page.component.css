@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    background-color: white;
+}
+
+.logo {
+    width: 300px;
+    height: auto;
+    margin-top: -30px; /* porque el logo no esta bien centrado la subo un poco, imagen: https://i.revistapym.com.co/old/2018/09/Pichincha-nueva-imagen.jpg */
+}
+
+button {
+    font-weight: bold;
+    font-size: larger;
+    color: #17275A;
+    background-color: #F9DE4B;
+    padding: 18px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s;
+    animation: bounce 2s infinite;
+}
+
+button:hover{
+    color:  #F9DE4B;
+    background-color: #17275A;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(3px); }
+}

@@ -5,7 +5,6 @@ import { Product } from '../../interfaces/product.interface';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit{
   

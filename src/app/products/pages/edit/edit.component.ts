@@ -6,8 +6,7 @@ import { SnackbarComponent } from '../../components/snackbar/snackbar.component'
 
 @Component({
   selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrl: './edit.component.css'
+  templateUrl: './edit.component.html'
 })
 export class EditComponent implements OnInit{
 

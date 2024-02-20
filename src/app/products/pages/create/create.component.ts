@@ -6,8 +6,7 @@ import { SnackbarComponent } from '../../components/snackbar/snackbar.component'
 
 @Component({
   selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrl: './create.component.css'
+  templateUrl: './create.component.html'
 })
 export class CreateComponent {
 
