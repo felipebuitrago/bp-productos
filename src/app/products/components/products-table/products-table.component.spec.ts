@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ProductsTableComponent } from './products-table.component';
+import { ProductService } from '../../services/product.service';
+import { FilterPipe } from '../../pipes/filter.pipe';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 describe('ProductsTableComponent', () => {
   let component: ProductsTableComponent;
@@ -8,7 +12,11 @@ describe('ProductsTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProductsTableComponent]
+      declarations: [ProductsTableComponent, FilterPipe, SnackbarComponent],
+      imports: [HttpClientTestingModule],
+      providers: [
+        { provide: ProductService, useValue: ProductService }
+      ]
     })
     .compileComponents();
     
