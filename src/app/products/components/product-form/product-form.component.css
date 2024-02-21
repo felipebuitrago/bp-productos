@@ -91,7 +91,6 @@ h1 {
     font-size: small;
 }
 
-/* You can add more responsiveness as needed */
 @media screen and (max-width: 768px) {
     .container {
         width: 95%;

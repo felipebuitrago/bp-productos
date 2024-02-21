@@ -8,7 +8,8 @@ import { Product } from '../interfaces/product.interface';
 })
 export class ProductService {
 
-  private baseURL: string = 'https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros/bp/products'
+  // seteada a public para ejecutar los test
+  public baseURL: string = 'https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros/bp/products'
   private headers: HttpHeaders = new HttpHeaders({
     'authorId' : '33'
   })

@@ -5,6 +5,7 @@ import { FilterPipe } from '../../pipes/filter.pipe';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ProductService } from '../../services/product.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { getNextYearFormattedDate } from '../../helpers/dates.helpers';
 
 describe('ProductFormComponent', () => {
   let component: ProductFormComponent;
@@ -27,5 +28,39 @@ describe('ProductFormComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  // test componente debe inicializarse con valores por defecto
+  it('should initialize form with default values', () => {
+    
+    expect(component.productForm.value).toEqual({
+      id: '', // o el valor de this.id si se pasa como @Input
+      name: '',
+      description: '',
+      logo: '',
+      date_release: ''
+    });
+  });
+
+  // test actualizar fecha de revision en funcion a la fecha de lanzamiento
+  it('should update date_revision when date_release changes', () => {
+
+    const testDate = '2023-01-01'; // fecha de prueba
+    component.onDateChange({target: {value: testDate}});
+    expect(component.date_revision).toBe(getNextYearFormattedDate(testDate));
+  });
+
+  // test formulario debe ser reseteado cuando se llama el metodo onReset
+  it('should reset the form when onReset is called', () => {
+
+    component.onReset();
+    expect(component.productForm.value).toEqual({
+      id: '', 
+      name: '',
+      description: '',
+      logo: '',
+      date_release: ''
+    });
+    expect(component.date_revision).toBe('');
   });
 });

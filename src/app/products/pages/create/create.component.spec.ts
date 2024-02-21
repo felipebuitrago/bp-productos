@@ -7,6 +7,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ProductService } from '../../services/product.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
+import { Product } from '../../interfaces/product.interface';
 
 describe('CreateComponent', () => {
 
@@ -39,4 +40,21 @@ describe('CreateComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should not create product and show error message if ID already exists', (done) => {
+    const mockProduct: Product = { id: '1', name: 'Existing Product', date_release: new Date(), date_revision: new Date(), description: '', logo: '' };
+    mockProductService.verifyProduct.mockReturnValue(of(true)); // Simula que el producto ya existe
+    jest.spyOn(component.snackbar, 'showSnackbar');
+  
+    component.onCreate(mockProduct);
+  
+    fixture.detectChanges(); // Actualiza el estado del componente
+  
+    fixture.whenStable().then(() => {
+      expect(mockProductService.createProduct).not.toHaveBeenCalledWith(mockProduct);
+      expect(component.snackbar.showSnackbar).toHaveBeenCalledWith(`⚠️ ID "${mockProduct.id}" en uso. ⚠️`);
+      done();
+    });
+  });
+
 });
