@@ -29,14 +29,21 @@ export class ProductsTableComponent {
   }
 
   deleteProduct(): void {
-    this.productService.deleteProduct(this.productToDelete.id).subscribe(  
-      () => {
-        this.onProductDelete.emit(true);
-        this.dialog.nativeElement.close();
-        this.page = 0;
-        this.snackbar.showSnackbar('✅ Eliminado con éxito. ✅');
-      }
-    );
+    this.productService.deleteProduct(this.productToDelete.id)
+      .subscribe(
+        {
+          next: e =>{
+            this.onProductDelete.emit(true);
+            this.dialog.nativeElement.close();
+            this.page = 0;
+            this.snackbar.showSnackbar('✅ Eliminado con éxito. ✅');
+          },
+          error: e => {
+            this.dialog.nativeElement.close();
+            this.snackbar.showSnackbar('❌ Error eliminando el producto. ❌');
+          }
+        }
+      );
   }
 
   onSearch(search: string) {

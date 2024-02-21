@@ -15,6 +15,6 @@ export class SnackbarComponent {
     this.message = message;
 
     this.snackbar.nativeElement.showModal();
-    setTimeout(() => { this.snackbar.nativeElement.close(); }, 3000); 
+    setTimeout(() => { this.snackbar.nativeElement.close(); }, 1500); 
   }
 }

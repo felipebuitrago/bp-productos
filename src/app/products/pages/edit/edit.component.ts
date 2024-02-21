@@ -20,20 +20,36 @@ export class EditComponent implements OnInit{
       this.id = params.get('id');
     });
     
-    this.productService.verifyProduct(this.id).subscribe(exists => {
-      if(!exists)this.router.navigate(['/productos'])
-    });
-
+    this.productService.verifyProduct(this.id)
+      .subscribe(
+        {
+          next: e => {
+            if(!e)this.router.navigate(['/productos'])
+          },
+          error: e => {
+            this.snackbar.showSnackbar("❌ Hubo un error en la petición. ❌")
+            
+            setTimeout(() => {
+              this.router.navigate(['/productos'])
+            }, 1000);
+          }
+        }  
+      );
   }
 
   onCreate($event: Product): void {
     
     this.productService.editProduct($event)
       .subscribe(
-        () => {
-          this.snackbar.showSnackbar("✅ Editado con éxito. ✅");
-          setTimeout(() => { this.router.navigate(['/productos']); }, 1000);
-        }
+        {
+          next: productUpdated => {
+            this.snackbar.showSnackbar("✅ Editado con éxito. ✅");
+            setTimeout(() => { this.router.navigate(['/productos']); }, 1000);
+          },
+          error: e => {
+            this.snackbar.showSnackbar("❌ Hubo un error editando el producto. ❌")
+          }
+        }  
       )
   }
 }

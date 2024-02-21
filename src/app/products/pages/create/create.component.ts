@@ -28,11 +28,12 @@ export class CreateComponent {
           }
         })
       ).subscribe({
-        next: () => {
+        next: productCreated => {
           this.snackbar.showSnackbar("✅ Agregado con éxito. ✅");
         },
-        error: (e) => {
-          this.snackbar.showSnackbar(`⚠️ ID "${$event.id}" en uso. ⚠️`);
+        error: e => {
+          var snackbarMessage = (e.message == 'bad request') ? '❌ Hubo un error creando el producto ❌' : `⚠️ ID "${$event.id}" en uso. ⚠️`;
+          this.snackbar.showSnackbar(snackbarMessage);
         }
       });
   }
