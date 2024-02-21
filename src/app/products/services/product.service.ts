@@ -21,9 +21,6 @@ export class ProductService {
   }
 
   createProduct(product : Product) : Observable<Product> {
-    //guardamos fecha con sistema horario UTC -5 para que el pipe Date funcione correctamente
-    product.date_release = new Date(product.date_release + 'T00:00:00.000-05:00');
-    product.date_revision = new Date(product.date_revision + 'T00:00:00.000-05:00');
     
     return this.httpClient.post<Product>( this.baseURL, { ...product }, { headers: this.headers, observe: 'response' } )
       .pipe(
@@ -44,9 +41,6 @@ export class ProductService {
   }
 
   editProduct(product : Product) : Observable<Product> {
-    //guardamos fecha con sistema horario UTC -5 para que el pipe Date funcione correctamente
-    product.date_release = new Date(product.date_release + 'T00:00:00.000-05:00');
-    product.date_revision = new Date(product.date_revision + 'T00:00:00.000-05:00');
 
     return this.httpClient.put<Product>( this.baseURL, { ...product }, { headers: this.headers, observe: 'response' } )
       .pipe(

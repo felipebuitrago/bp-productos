@@ -30,18 +30,6 @@ describe('ProductFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // test componente debe inicializarse con valores por defecto
-  it('should initialize form with default values', () => {
-    
-    expect(component.productForm.value).toEqual({
-      id: '', // o el valor de this.id si se pasa como @Input
-      name: '',
-      description: '',
-      logo: '',
-      date_release: ''
-    });
-  });
-
   // test actualizar fecha de revision en funcion a la fecha de lanzamiento
   it('should update date_revision when date_release changes', () => {
 

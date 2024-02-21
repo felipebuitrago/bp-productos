@@ -12,11 +12,8 @@ import { Product } from '../../interfaces/product.interface';
 describe('CreateComponent', () => {
 
   const mockProductService = {
-    getProducts: jest.fn().mockReturnValue(of([])), // Asume que devuelve un array vacío para la prueba
-    createProduct: jest.fn().mockReturnValue(of({})), // Asume que devuelve un objeto vacío o un producto simulado
-    editProduct: jest.fn().mockReturnValue(of({})), // Similar a createProduct
-    deleteProduct: jest.fn().mockReturnValue(of(true)), // Asume que la eliminación fue exitosa
-    verifyProduct: jest.fn().mockReturnValue(of(true)) // Asume que la verificación fue exitosa
+    createProduct: jest.fn().mockReturnValue(of({})), 
+    verifyProduct: jest.fn().mockReturnValue(of(true))
   };
 
   let component: CreateComponent;
@@ -42,17 +39,37 @@ describe('CreateComponent', () => {
   });
 
   it('should not create product and show error message if ID already exists', (done) => {
-    const mockProduct: Product = { id: '1', name: 'Existing Product', date_release: new Date(), date_revision: new Date(), description: '', logo: '' };
-    mockProductService.verifyProduct.mockReturnValue(of(true)); // Simula que el producto ya existe
+    
+    const mockProduct: Product = { id: '333', name: 'Tarjeta Credito', date_release: new Date(), date_revision: new Date(), description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' };
+    mockProductService.verifyProduct.mockReturnValue(of(true)); 
+    
     jest.spyOn(component.snackbar, 'showSnackbar');
   
     component.onCreate(mockProduct);
   
-    fixture.detectChanges(); // Actualiza el estado del componente
+    fixture.detectChanges();
   
     fixture.whenStable().then(() => {
       expect(mockProductService.createProduct).not.toHaveBeenCalledWith(mockProduct);
       expect(component.snackbar.showSnackbar).toHaveBeenCalledWith(`⚠️ ID "${mockProduct.id}" en uso. ⚠️`);
+      done();
+    });
+  });
+  
+  it('should create product and show success message if ID not exists', (done) => {
+  
+    const mockProduct: Product = { id: '333', name: 'Tarjeta Credito', date_release: new Date(), date_revision: new Date(), description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' };
+    mockProductService.verifyProduct.mockReturnValue(of(false)); 
+    
+    jest.spyOn(component.snackbar, 'showSnackbar');
+  
+    component.onCreate(mockProduct);
+  
+    fixture.detectChanges();
+  
+    fixture.whenStable().then(() => {
+      expect(mockProductService.createProduct).toHaveBeenCalledWith(mockProduct);
+      expect(component.snackbar.showSnackbar).toHaveBeenCalledWith(`✅ Agregado con éxito. ✅`);
       done();
     });
   });

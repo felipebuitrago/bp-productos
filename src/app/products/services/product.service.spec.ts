@@ -1,119 +1,12 @@
-import { TestBed, flush } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { ProductService } from './product.service';
-import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { Product } from '../interfaces/product.interface';
-import { environment } from '../../../environments/environments';
 import { HttpClientModule } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
-const mockProducts: Product[] = [
-  { id: '333', name: 'Tarjeta Credito', date_release: new Date(), date_revision: new Date(), description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' },
-  { id: '333', name: 'Tarjeta Credito', date_release: new Date(), date_revision: new Date(), description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' },
-  { id: '333', name: 'Tarjeta Credito', date_release: new Date(), date_revision: new Date(), description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' },
-];
-
-const mockSimpleProduct: Product = { id: '333', name: 'Tarjeta Credito', date_release: new Date(), date_revision: new Date(), description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' };
-
-// describe('ProductService', () => {
-//   let service: ProductService;
-//   let httpMock: HttpTestingController;
-
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       imports: [ HttpClientTestingModule ],
-//       providers: [ProductService]
-//     });
-//     service = TestBed.inject(ProductService);
-//     httpMock = TestBed.inject(HttpTestingController);
-//   });
-
-//   afterEach(() => {
-//     httpMock.verify(); 
-//   });
-
-//   it('should be created', () => {
-//     expect(service).toBeTruthy();
-//   });
-
-//   // Test getProducts debe retornar los productos
-//   it('should return a list of products', (done) => {
-
-//     service.getProducts().subscribe(products => {
-//       expect(products.length).toBe(mockProducts.length);
-//       expect(products).toEqual(mockProducts);
-//       done();
-//     });
-
-//     const req = httpMock.expectOne(environment.apiBaseUrl);
-//     expect(req.request.method).toBe('GET');
-//     req.flush(mockProducts);
-//   });
-
-//   // Test createProduct debe crear el producto y retornarlo
-//   it('should create a new product and return it', (done) => {
-    
-//     service.createProduct(mockSimpleProduct).subscribe(product => {
-//       expect(product).toEqual(mockSimpleProduct);
-//       done();
-//     });
-
-//     const req = httpMock.expectOne(environment.apiBaseUrl);
-//     expect(req.request.method).toBe('POST');
-//     expect(req.request.body).toEqual(mockSimpleProduct);
-    
-//     req.flush(mockSimpleProduct);
-//   });
-
-//   // Test editProduct debe actualizar el producto y retornarlo
-//   it('should update the product and return it', (done) => {
-
-//     service.editProduct(mockSimpleProduct).subscribe(product => {
-//       expect(product).toEqual(mockSimpleProduct);
-//       done();
-//     });
-
-//     const req = httpMock.expectOne(environment.apiBaseUrl);
-//     expect(req.request.method).toBe('PUT');
-//     expect(req.request.body).toEqual(mockSimpleProduct);
-    
-//     req.flush(mockSimpleProduct);
-//   });
-
-//   // Test deleteProduct debe eliminar el producto y retornar true
-//   it('should remove the product and return true', (done) => {
-    
-//     const productId = '333';
-
-//     service.deleteProduct(productId).subscribe(result => {
-//       expect(result).toBeTruthy();
-//       done();
-//     });
-
-//     const req = httpMock.expectOne(`${environment.apiBaseUrl}/?id=${productId}`);
-//     expect(req.request.method).toBe('DELETE');
-
-//     req.flush({});
-//   });
-
-//   // Test verifyProduct debe retornar true si el id del esta en uso
-//   it('should return product verification result', (done) => {
-    
-//     const productId = '333';
-
-//     service.verifyProduct(productId).subscribe(result => {
-//       expect(result).toBeTruthy();
-//       done()
-//     });
-
-//     const req = httpMock.expectOne(`${environment.apiBaseUrl}/verification?id=${productId}`);
-//     expect(req.request.method).toBe('GET');
-
-//     req.flush(true);
-//   });
-// });
-
+const mockSimpleProduct: Product = { id: '333', name: 'Tarjeta Debito', date_release: '2024-06-06T05:00:00.000+00:00', date_revision: '2024-06-06T05:00:00.000+00:00', description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' };
 
 describe('ProductService', () => {
+  
   let service: ProductService;
 
   beforeEach(() => {
@@ -129,12 +22,55 @@ describe('ProductService', () => {
     expect(service).toBeTruthy();
   });
 
-  test('should return a list of products', (done) => {
+  // Test getProducts debe retornar todos los productos
+  it('should return a list of products', (done) => {
     
     service.getProducts().subscribe( products => {
-        console.log(products instanceof Array);
         expect( products ).toBeInstanceOf(Array<Product[]>);
+        console.log("Productos consultados");
         done();
       })
   });
+
+  // Test createProduct debe crear el producto y retornarlo
+  it('should create a new product and return it', (done) => {
+    
+    service.createProduct(mockSimpleProduct).subscribe(product => {
+      console.log(product);
+      expect(product).toEqual(mockSimpleProduct);
+      console.log("Producto sample creado");
+      done();
+    });
+  });
+
+  // Test editProduct debe actualizar el producto y retornarlo
+  it('should update the product and return it', (done) => {
+    
+    service.editProduct(mockSimpleProduct).subscribe(product => {
+      expect(product).toEqual(mockSimpleProduct);
+      console.log("Producto sample editado");
+      done();
+    });
+  });
+
+  // Test verifyProduct debe retornar true si el id del esta en uso
+  it('should return product verification result', (done) => {
+
+    service.verifyProduct(mockSimpleProduct.id).subscribe(result => {
+      expect(result).toBeTruthy();
+      console.log("Producto sample verificado");
+      done();
+    });
+  });
+
+  // Test deleteProduct debe eliminar el producto y retornar true
+  it('should remove the product and return true', (done) => {
+
+    service.deleteProduct(mockSimpleProduct.id).subscribe(result => {
+      expect(result).toBeTruthy();
+      console.log("Producto sample eliminado");
+      done();
+    });
+  });
+
 });

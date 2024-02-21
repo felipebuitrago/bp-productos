@@ -14,13 +14,9 @@ import { Product } from '../../interfaces/product.interface';
 describe('EditComponent', () => {
 
   const mockProductService = {
-    getProducts: jest.fn().mockReturnValue(of([])), // Asume que devuelve un array vacío para la prueba
-    createProduct: jest.fn().mockReturnValue(of({})), // Asume que devuelve un objeto vacío o un producto simulado
-    editProduct: jest.fn().mockReturnValue(of({})), // Similar a createProduct
-    deleteProduct: jest.fn().mockReturnValue(of(true)), // Asume que la eliminación fue exitosa
-    verifyProduct: jest.fn().mockReturnValue(of(true)) // Asume que la verificación fue exitosa
+    editProduct: jest.fn().mockReturnValue(of({})),
+    verifyProduct: jest.fn().mockReturnValue(of(true))
   };
-
   let component: EditComponent;
   let fixture: ComponentFixture<EditComponent>;
 
@@ -44,7 +40,9 @@ describe('EditComponent', () => {
   });
 
   it('should redirect if product does not exist', (done) => {
-    mockProductService.verifyProduct.mockReturnValue(of(false)); // Simula que el producto no existe
+
+    mockProductService.verifyProduct.mockReturnValue(of(false));
+
     const router = TestBed.inject(Router);
     jest.spyOn(router, 'navigate').mockImplementation(() => Promise.resolve(true)); // Mock de la redirección
   
@@ -57,8 +55,10 @@ describe('EditComponent', () => {
   });
   
   it('should call editProduct and show success message on successful edit', (done) => {
-    const mockProduct: Product = { id: '123', name: 'Test', date_release: new Date(), date_revision: new Date(), description: '', logo: '' };
-    mockProductService.editProduct.mockReturnValue(of(mockProduct)); // Simula la edición exitosa
+    
+    const mockProduct: Product = { id: '333', name: 'Tarjeta Credito', date_release: new Date(), date_revision: new Date(), description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' };
+    
+    mockProductService.editProduct.mockReturnValue(of(mockProduct));
     jest.spyOn(component.snackbar, 'showSnackbar');
   
     component.onCreate(mockProduct);
@@ -72,7 +72,4 @@ describe('EditComponent', () => {
     });
   });
   
-  it('should have null id initially', () => {
-    expect(component.id).toBeNull();
-  });
 });

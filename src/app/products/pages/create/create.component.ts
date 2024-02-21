@@ -21,6 +21,9 @@ export class CreateComponent {
         switchMap((exists) => {
          
           if (!exists) {
+            //guardamos fecha con sistema horario UTC -5 para que el pipe Date funcione correctamente
+            $event.date_release = new Date($event.date_release + 'T00:00:00.000-05:00');
+            $event.date_revision = new Date($event.date_revision + 'T00:00:00.000-05:00');
             return this.productService.createProduct($event);
           
           } else {
