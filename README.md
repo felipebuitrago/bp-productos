@@ -3,27 +3,27 @@
 # Instrucciones de ejecución del proyecto
 
 #### 1) Clona el repositorio
-```
+```console
 git clone https://github.com/felipebuitrago/bp-productos.git
 ```
 
 #### 2) Navega al directorio generado
-```
+```console
 cd bp-productos
 ```
 
 #### 3) Instala las dependencias
-```
+```console
 npm install
 ```
 
 #### 4) Ejecuta el proyecto
-```
+```console
 npm start
 ```
 
 #### 5) Ejecuta las pruebas unitarias
-```
+```console
 npm run test
 ```
 
