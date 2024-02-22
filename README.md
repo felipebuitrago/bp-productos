@@ -1,3 +1,32 @@
+
+
+# Instrucciones de ejecución del proyecto
+
+#### 1) Clona el repositorio
+```
+git clone https://github.com/felipebuitrago/bp-productos.git
+```
+
+#### 2) Navega al directorio generado
+```
+cd bp-productos
+```
+
+#### 3) Instala las dependencias
+```
+npm install
+```
+
+#### 4) Ejecuta el proyecto
+```
+npm start
+```
+
+#### 5) Ejecuta las pruebas unitarias
+```
+npm run test
+```
+
 # Funciones
 
 ## F1. Listado de productos financieros: ✅

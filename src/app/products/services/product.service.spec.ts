@@ -3,7 +3,7 @@ import { ProductService } from './product.service';
 import { Product } from '../interfaces/product.interface';
 import { HttpClientModule } from '@angular/common/http';
 
-const mockSimpleProduct: Product = { id: '333', name: 'Tarjeta Debito', date_release: '2024-06-06T05:00:00.000+00:00', date_revision: '2024-06-06T05:00:00.000+00:00', description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' };
+const mockProduct: Product = { id: '333', name: 'Tarjeta Debito', date_release: '2024-06-06T05:00:00.000+00:00', date_revision: '2024-06-06T05:00:00.000+00:00', description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' };
 
 describe('ProductService', () => {
   
@@ -22,53 +22,48 @@ describe('ProductService', () => {
     expect(service).toBeTruthy();
   });
 
-  // Test getProducts debe retornar todos los productos
-  it('should return a list of products', (done) => {
+  it('should return the list of products', (done) => {
     
     service.getProducts().subscribe( products => {
         expect( products ).toBeInstanceOf(Array<Product[]>);
-        console.log("Productos consultados");
+        console.log("✅ ProductService should return the list of products ✅");
         done();
       })
   });
 
-  // Test createProduct debe crear el producto y retornarlo
   it('should create a new product and return it', (done) => {
     
-    service.createProduct(mockSimpleProduct).subscribe(product => {
-      console.log(product);
-      expect(product).toEqual(mockSimpleProduct);
-      console.log("Producto sample creado");
+    service.createProduct(mockProduct).subscribe(product => {
+  
+      expect(product).toEqual(mockProduct);
+      console.log("✅ ProductService should create a new product and return it ✅");
       done();
     });
   });
 
-  // Test editProduct debe actualizar el producto y retornarlo
   it('should update the product and return it', (done) => {
     
-    service.editProduct(mockSimpleProduct).subscribe(product => {
-      expect(product).toEqual(mockSimpleProduct);
-      console.log("Producto sample editado");
+    service.editProduct(mockProduct).subscribe(product => {
+      expect(product).toEqual(mockProduct);
+      console.log("✅ ProductService should update the product and return it ✅");
       done();
     });
   });
 
-  // Test verifyProduct debe retornar true si el id del esta en uso
   it('should return product verification result', (done) => {
 
-    service.verifyProduct(mockSimpleProduct.id).subscribe(result => {
+    service.verifyProduct(mockProduct.id).subscribe(result => {
       expect(result).toBeTruthy();
-      console.log("Producto sample verificado");
+      console.log("✅ ProductService should return product verification result ✅");
       done();
     });
   });
 
-  // Test deleteProduct debe eliminar el producto y retornar true
   it('should remove the product and return true', (done) => {
 
-    service.deleteProduct(mockSimpleProduct.id).subscribe(result => {
+    service.deleteProduct(mockProduct.id).subscribe(result => {
       expect(result).toBeTruthy();
-      console.log("Producto sample eliminado");
+      console.log("✅ ProductService should remove the product and return true ✅");
       done();
     });
   });

@@ -10,7 +10,6 @@ export class SnackbarComponent {
   @Input() message : string = '';
   @ViewChild('snackbar') snackbar: ElementRef = new ElementRef('snackbar');
 
-
   showSnackbar(message: string) {
     this.message = message;
 

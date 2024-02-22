@@ -44,14 +44,16 @@ describe('EditComponent', () => {
     mockProductService.verifyProduct.mockReturnValue(of(false));
 
     const router = TestBed.inject(Router);
-    jest.spyOn(router, 'navigate').mockImplementation(() => Promise.resolve(true)); // Mock de la redirección
+    jest.spyOn(router, 'navigate').mockImplementation(() => Promise.resolve(true));
   
-    component.ngOnInit(); // Llama a ngOnInit para simular la inicialización
+    component.ngOnInit(); 
   
-    setTimeout(() => { // Espera a que se resuelvan las promesas internas
+    setTimeout(() => {
       expect(router.navigate).toHaveBeenCalledWith(['/productos']);
       done();
     }, 0);
+
+    console.log("✅ EditComponent should redirect if product does not exist ✅");
   });
   
   it('should call editProduct and show success message on successful edit', (done) => {
@@ -63,13 +65,15 @@ describe('EditComponent', () => {
   
     component.onCreate(mockProduct);
   
-    fixture.detectChanges(); // Actualiza el estado del componente
+    fixture.detectChanges();
   
     fixture.whenStable().then(() => {
       expect(mockProductService.editProduct).toHaveBeenCalledWith(mockProduct);
       expect(component.snackbar.showSnackbar).toHaveBeenCalledWith("✅ Editado con éxito. ✅");
       done();
     });
+
+    console.log("✅ EditComponent should call editProduct and show success message on successful edit ✅");
   });
   
 });

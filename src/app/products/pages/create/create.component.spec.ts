@@ -54,9 +54,11 @@ describe('CreateComponent', () => {
       expect(component.snackbar.showSnackbar).toHaveBeenCalledWith(`⚠️ ID "${mockProduct.id}" en uso. ⚠️`);
       done();
     });
+
+    console.log("✅ CreateComponent should not create product and show error message if ID already exists ✅");
   });
   
-  it('should create product and show success message if ID not exists', (done) => {
+  it('should create product if ID does not exist and show success message', (done) => {
   
     const mockProduct: Product = { id: '333', name: 'Tarjeta Credito', date_release: new Date(), date_revision: new Date(), description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' };
     mockProductService.verifyProduct.mockReturnValue(of(false)); 
@@ -72,6 +74,8 @@ describe('CreateComponent', () => {
       expect(component.snackbar.showSnackbar).toHaveBeenCalledWith(`✅ Agregado con éxito. ✅`);
       done();
     });
+
+    console.log("✅ CreateComponent should create product if ID does not exist and show success message ✅");
   });
 
 });

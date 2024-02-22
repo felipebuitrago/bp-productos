@@ -69,9 +69,9 @@ export class ProductService {
           return response.status === 200;
         }),
         catchError(error => {
-          //? aunque la peticion este hecha correctamente la respuesta es enviada con un error
-          //? por lo cual cae en el metodo catchError sin tener efecto el metodo tap como se procesa
-          //?  la respuesta en otros metodos del servicio
+          //? aunque la peticion este hecha correctamente y se reciba status 200 la respuesta es 
+          //? enviada bajo error por lo cual cae en el metodo catchError sin tener efecto el 
+          //? metodo tap como se procesa la respuesta en otros metodos del servicio
           if (error.status === 200) {
             return of(true);
           }

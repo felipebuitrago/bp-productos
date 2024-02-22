@@ -49,6 +49,9 @@ describe('ProductsTableComponent', () => {
       expect(component.snackbar.showSnackbar).toHaveBeenCalledWith(`✅ Eliminado con éxito. ✅`);
       done();
     });
+
+    console.log("✅ ProductsTableComponent should delete product and show success message ✅");
+
     done();
   });
   

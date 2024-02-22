@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductsComponent } from './products.component';
 import { ProductsTableComponent } from '../../components/products-table/products-table.component';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ProductService } from '../../services/product.service';
 import { FilterPipe } from '../../pipes/filter.pipe';
 import { SnackbarComponent } from '../../components/snackbar/snackbar.component';
@@ -13,13 +13,10 @@ describe('ProductsComponent', () => {
 
   let component: ProductsComponent;
   let fixture: ComponentFixture<ProductsComponent>;
+  let compiled: HTMLElement;
 
   const mockProductService = {
-    getProducts: jest.fn().mockReturnValue(of([
-      { id: '333', name: 'Tarjeta Credito', date_release: new Date(), date_revision: new Date(), description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' },
-      { id: '333', name: 'Tarjeta Credito', date_release: new Date(), date_revision: new Date(), description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' },
-      { id: '333', name: 'Tarjeta Credito', date_release: new Date(), date_revision: new Date(), description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' },
-    ])), 
+    getProducts: jest.fn().mockReturnValue(of([])), 
   }
 
   beforeEach(async () => {
@@ -39,15 +36,17 @@ describe('ProductsComponent', () => {
     component = fixture.componentInstance;
 
     fixture.detectChanges();
+    compiled = fixture.nativeElement;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load products on init', () => {
+  it('should load products on init and render the table per each one', () => {
 
     const mockProducts: Product[] = [
+      { id: '333', name: 'Tarjeta Credito', date_release: new Date(), date_revision: new Date(), description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' },
       { id: '333', name: 'Tarjeta Credito', date_release: new Date(), date_revision: new Date(), description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' },
       { id: '333', name: 'Tarjeta Credito', date_release: new Date(), date_revision: new Date(), description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' },
       { id: '333', name: 'Tarjeta Credito', date_release: new Date(), date_revision: new Date(), description: 'Tarjeta Credito Mastercard', logo: 'lint/to/product/logo' },
@@ -57,6 +56,13 @@ describe('ProductsComponent', () => {
     component.ngOnInit(); 
     expect(mockProductService.getProducts).toHaveBeenCalled();
     expect(component.products).toEqual(mockProducts);
+
+    fixture.detectChanges();
+    const tr = compiled.querySelectorAll('tr');
+
+    expect(tr.length).toBe(mockProducts.length + 1); // +1 por el tr del thead
+
+    console.log("✅ ProductsComponent should load products on init and render the table per each one ✅");
   });
 
 });

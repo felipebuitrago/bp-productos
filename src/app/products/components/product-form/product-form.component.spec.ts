@@ -30,15 +30,16 @@ describe('ProductFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // test actualizar fecha de revision en funcion a la fecha de lanzamiento
   it('should update date_revision when date_release changes', () => {
 
     const testDate = '2023-01-01'; // fecha de prueba
     component.onDateChange({target: {value: testDate}});
     expect(component.date_revision).toBe(getNextYearFormattedDate(testDate));
+
+    console.log("✅ ProductFormComponent should update date_revision when date_release changes ✅");
+
   });
 
-  // test formulario debe ser reseteado cuando se llama el metodo onReset
   it('should reset the form when onReset is called', () => {
 
     component.onReset();
@@ -50,5 +51,7 @@ describe('ProductFormComponent', () => {
       date_release: ''
     });
     expect(component.date_revision).toBe('');
+
+    console.log("✅ ProductFormComponent should reset the form when onReset is called ✅");
   });
 });
